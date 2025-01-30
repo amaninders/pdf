@@ -1,5 +1,17 @@
+const isLocal = process.env.NODE_ENV === 'development'; // Check if running locally
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  assetPrefix: '/pdf/', // Add this line
+  basePath: isLocal ? '' : '/pdf', // Set basePath only for local development
+  trailingSlash: true, // Add this line
+  images: {
+    unoptimized: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   webpack: (config, { isServer }) => {
     config.experiments = {
       ...config.experiments,
@@ -16,6 +28,6 @@ const nextConfig = {
 
     return config;
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
